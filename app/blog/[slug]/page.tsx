@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 const page = async ({ params: { slug } }: { params: { slug: string } }) => {
-    const res = await fetch(`http://127.0.0.1:8090/api/collections/posts/records?slug=${slug}`)
+    const res = await fetch(`http://127.0.0.1:8090/api/collections/posts/records?slug=${slug}`, { next: { revalidate: 60 } })
     const json = await res.json();
     const items: any[] = json['items'];
     const filteredItems = items.filter(item => item['slug'] == slug);
